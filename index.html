@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARIBU SOFTWARE DEMO</title>
+    <script src="jquery.min.js"></script>
+    <script src="jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.datagrid.js"></script>
+    <link href="themes/default/easyui.css" rel="stylesheet" type="text/css">
+    <link href="themes/icon.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h4>NavDynamics Purchase Orders</h4>
+  <table id="purchase-orders" class="easyui-datagrid" style="height:450px"  align="center"
+   pagination="true"
+    rownumbers="true" 
+    fitColumns="true" 
+    title="Purchase Orders" 
+    iconCls="icon-save"
+    singleSelect="true">
+    <thead>
+        <tr> 
+          <th field="No">No</th>
+            <th field="Document_No">Document No</th>
+            <th field="Document_Type">Document Type</th>
+            <th field="Type">Type</th>
+            <th field="Line_No">Line No</th>
+            <th field="Description">Description</th>
+            <th field="Quantity">Quantity</th>
+            <th field="Outstanding_Quantity">Outstanding Quantity</th>
+            <th field="Unit_of_Measure_Code">Units</th>
+            <th field="Amount" >Amount</th>
+            <th field="Direct_Unit_Cost">Direct Unit Cost</th>
+            <th field="Line_Discount_Percent">Line Discount Percent</th>
+            <th field="Currency_Code" >Currency</th>
+        </tr>
+  </thead>
+  </table>
+<script>
+  // init purchase orders
+  //////////////////////
+  $(function() {
+getPurchaseOrders();
+
+  });
+function getPurchaseOrders(){
+  var settings = {
+  "url": "http://desktop-hdas2ep:7048/DynamicsNAV100/ODataV4/Company('CRONUS%20International%20Ltd.')/PurchaseOrders",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Basic YWRtaW46QEFkbWluMTIz"
+  },
+};
+$.ajax(settings).done(function (response) {
+  console.log(response.value);
+  
+    $('#purchase-orders').datagrid('loadData',response.value);
+});
+}
+/////////////////////
+function getSales(){
+    var settings = {
+  "url": "http://desktop-hdas2ep:7048/DynamicsNAV100/ODataV4/Company('CRONUS%20International%20Ltd.')/SalesOrder",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Basic YWRtaW46QEFkbWluMTIz"
+  },
+};
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+   }
+
+</script>
+</body>
+</html>
